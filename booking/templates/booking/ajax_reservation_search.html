@@ -1,0 +1,118 @@
+{% load booking_extras %}
+<table cellpadding="0" cellspacing="0">
+{% for reservation in reservations %}
+    <tr class="heading">
+        <td>
+            {{ reservation.reservation_from}} - {{ reservation.reservation_to }}
+        </td>
+
+        <td>
+            {{ reservation.reservation_owner }}
+        </td>
+
+        <td>
+            Price
+        </td>
+    </tr>
+    {% if reservation.reservation_room_sgl_quantity != 0 %}
+        <tr class="item">
+            <td>
+                Single Room
+            </td>
+            <td>
+                {{ reservation.reservation_room_sgl_quantity }}
+            </td>
+            <td>
+                ${{ reservation.reservation_room_sgl_quantity|multiply:hotel.hotel_room_sgl_price }}
+            </td>
+        </tr>
+    {% endif %}
+    {% if reservation.reservation_room_dbl_quantity != 0  %}
+        <tr class="item">
+            <td>
+                Double Room
+            </td>
+            <td>
+                {{ reservation.reservation_room_dbl_quantity }}
+            </td>
+            <td>
+                ${{ reservation.reservation_room_dbl_quantity|multiply:hotel.hotel_room_dbl_price }}
+            </td>
+
+        </tr>
+    {% endif %}
+    {% if reservation.reservation_room_twin_quantity != 0 %}
+        <tr class="item">
+            <td>
+                Twin Room
+            </td>
+            <td>
+                {{ reservation.reservation_room_twin_quantity }}
+            </td>
+            <td>
+                ${{ reservation.reservation_room_twin_quantity|multiply:hotel.hotel_room_twin_price }}
+            </td>
+        </tr>
+    {% endif %}
+    {% if reservation.reservation_room_tpl_quantity != 0 %}
+        <tr class="item">
+            <td>
+                Triple Room
+            </td>
+            <td>
+                {{ reservation.reservation_room_tpl_quantity }}
+            </td>
+            <td>
+                ${{ reservation.reservation_room_tpl_quantity|multiply:hotel.hotel_room_tpl_price }}
+            </td>
+        </tr>
+    {% endif %}
+    {% if reservation.reservation_room_qdbl_quantity != 0 %}
+        <tr class="item">
+            <td>
+                Quad Room
+            </td>
+            <td>
+                {{ reservation.reservation_room_qdbl_quantity }}
+            </td>
+            <td>
+                ${{ reservation.reservation_room_qdbl_quantity|multiply:hotel.hotel_room_qdbl_price }}
+            </td>
+        </tr>
+    {% endif %}
+    {% if reservation.reservation_room_family_quantity != 0 %}
+        <tr class="item">
+            <td>
+                Family Room
+            </td>
+            <td>
+                {{ reservation.reservation_room_family_quantity }}
+            </td>
+            <td>
+                ${{ reservation.reservation_room_family_quantity|multiply:hotel.hotel_room_family_price }}
+            </td>
+        </tr>
+    {% endif %}
+    {% if reservation.reservation_room_apartment_quantity != 0 %}
+        <tr class="item">
+            <td>
+                Apartment Room
+            </td>
+            <td>
+                {{ reservation.reservation_room_apartment_quantity }}
+            </td>
+            <td>
+                ${{ reservation.reservation_room_apartment_quantity|multiply:hotel.hotel_room_apartment_price }}
+            </td>
+        </tr>
+    {% endif %}
+
+    <tr class="total">
+        <td></td>
+        <td></td>
+        <td style="text-align: right">
+            Total: ${{ reservation.reservation_total_price }}
+        </td>
+    </tr>
+{% endfor %}
+</table>

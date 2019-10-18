@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>home</title>
+{% endblock %}
+{% block body %}
+    <ul>
+        {% for reservation in all_reservations %}
+            <li>{{ reservation.reservation_owner }} -- {{ reservation.reservation_hotel }} -- {{ reservation.reservation_from }} -- {{ reservation.reservation_to }} -- {{ reservation.reservation_room }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

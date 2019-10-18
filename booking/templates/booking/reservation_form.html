@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+    <div class="container" style="padding-top: 50px; padding-bottom: 50px">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <h1 class="mt-2">Book room here</h1>
+                <hr class="mt-0 mb-4">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form.reservation_from|as_crispy_field }}
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-md-6">
+                                {{ form.reservation_to|as_crispy_field }}
+                            </div>
+                        </div>
+                           <div class="row">
+                            <div class="col-md-3">
+                                {{ form.reservation_room_sgl_quantity|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                 {{ form.reservation_room_dbl_quantity|as_crispy_field}}
+                            </div>
+                        </div>
+                          <div class="row">
+                            <div class="col-md-3">
+                                {{ form.reservation_room_twin_quantity|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                 {{ form.reservation_room_tpl_quantity|as_crispy_field}}
+                            </div>
+                        </div>
+                          <div class="row">
+                            <div class="col-md-3">
+                                {{ form.reservation_room_qdbl_quantity|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                 {{ form.reservation_room_family_quantity|as_crispy_field}}
+                            </div>
+                        </div>
+                          <div class="row">
+                            <div class="col-md-3">
+                                {{ form.reservation_room_apartment_quantity|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3" style="text-align: right; padding-top: 25px">
+                                 <button type="submit" class="btn btn-success">Book rooms</button>
+                            </div>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

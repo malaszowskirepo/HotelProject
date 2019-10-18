@@ -1,0 +1,42 @@
+{% load booking_extras %}
+{% csrf_token %}
+        <div class="highlights" style="height: fit-content">
+            {% for hotel in all_hotels %}
+                <section>
+                    <div class="content" style="padding-top: 20px; padding-bottom: 20px;">
+                        <header>
+                            <img src="{{ hotel.hotel_image.url }}" alt="" height="170px" width="100%">
+                            <h3 style="margin-top: 10px">{{ hotel.hotel_name }} <br>
+                                {% for star in  hotel.rating|times %}
+                                    <span class="fa fa-star checked" style="color: gold"></span>
+                                {% endfor %}
+                                {% for star in  hotel.rating_left|times %}
+                                    <span class="fa fa-star"></span>
+                                {% endfor %}</h3>
+                        </header>
+                        <p>{{ hotel.hotel_short_desc }}</p>
+                        <p>{{ hotel.hotel_street }} {{ hotel.hotel_street_number }}
+                            <br>{{ hotel.hotel_zip_code }} {{ hotel.hotel_city }}</p>
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <a href="{% url 'booking:hotel_details' pk=hotel.pk %}" class="button primary"
+                                   style="margin-left: -40px">View Details</a>
+                            </div>
+                            {% if user.is_authenticated %}
+                                {% if not perms.booking.has_hotel %}
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <a href="{% url 'booking:reservation_add' hotel_id=hotel.pk %}"
+                                           class="button primary"
+                                           style="margin-left: -3px">Reservation</a>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </section>
+            {% endfor %}
+        </div>
+
+

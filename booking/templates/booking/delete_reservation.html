@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+<div class="container" style="padding-top: 50px; padding-bottom: 50px">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <h1 class="mt-2">Delete Reservation</h1>
+                <hr class="mt-0 mb-4">
+                <p>Are you sure you want to delete your reservation from {{ reservation.reservation_from }} to {{ reservation.reservation_to }}?</p>
+                    <form action="{% url "booking:reservation_delete" pk=reservation.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success">Yes, delete.</button>
+                        <a class="btn btn-danger" href="{% url "booking:profile" %}" role="button">No, go back.</a>
+                        <input style="width: 330px; height: 34px; padding: 5px" type="text" placeholder="  describe why you want to delete your reservation" name="info" value="">
+                    </form>
+            </div>
+        </div>
+</div>
+{% endblock %}

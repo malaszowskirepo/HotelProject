@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load booking_extras %}
+
+{% block head %}
+    {% load staticfiles %}
+		<title>Industrious by TEMPLATED</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link rel="stylesheet" href="{% static 'booking/css/main.css' %}" />
+
+{% endblock %}
+
+
+{% block body %}
+
+		<!-- Banner -->
+			<section id="banner" style="margin-top: -20px">
+				<div class="inner">
+					<h1>Hotel Project</h1>
+					<p>The most innovative website for hotel management.</p>
+				</div>
+				<video autoplay loop muted playsinline src="{% static 'booking/images/video1.mp4' %}"></video>
+			</section>
+
+		<!-- Highlights -->
+
+
+
+    <section class="wrapper">
+        <div class="inner">
+            <header class="special">
+                <h2>Many hotel owners trusted us</h2>
+                <p>Here is the complete list of hotels added by their owners who entrusted us with their business.</p>
+            </header>
+            {% csrf_token %}
+            <input id="search" type="text" placeholder="search by city..." name="search_text">
+            <div id="search-results">
+                {% include 'booking/ajax_search.html' %}
+            </div>
+        </div>
+    </section>
+
+
+
+		<!-- CTA -->
+			<section id="cta" class="wrapper">
+				<div class="inner">
+					<h2>Only hotels subjected to a thorough selection</h2>
+					<p>All hotel items are checked by the site administrator, which eliminates the possibility of misleading customers.</p>
+				</div>
+			</section>
+
+		<!-- Testimonials -->
+    {% if top_opinions %}
+			<section class="wrapper">
+				<div class="inner">
+					<header class="special">
+						<h2>satisfied customers</h2>
+						<p>As of today, thousands of users have trusted the hotel system by reserving rooms in them. Below are some of the many opinions about hotels added to our system.</p>
+					</header>
+					<div class="testimonials">
+                        {% for opinion in top_opinions %}
+						<section style="height: fit-content">
+							<div class="content">
+								<blockquote>
+									<p>{{opinion.opinion_content}}</p>
+                                    {% for star in opinion.rating_int|times %}
+                                         <span class="fa fa-star checked" style="color: #ff9f1a"></span>
+                                    {% endfor %}
+                                {% for star in opinion.rating_int_left|times %}
+                                         <span class="fa fa-star"></span>
+                                    {% endfor %}
+								</blockquote>
+								<div class="author">
+									<div class="image">
+										<img src="{% static 'booking/images/pic01.jpg' %}" alt="" />
+									</div>
+									<p class="credit">- <strong>{{opinion.opinion_to.reservation_owner}}</strong> &nbsp; <span>{{ opinion.opinion_to.reservation_hotel }}</span></p>
+								</div>
+							</div>
+						</section>
+                        {% endfor %}
+					</div>
+				</div>
+			</section>
+    {% endif %}
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<div class="content">
+						<section>
+							<h3>Accumsan montes viverra</h3>
+							<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing. Lorem ipsum dolor vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing sed feugiat eu faucibus. Integer ac sed amet praesent. Nunc lacinia ante nunc ac gravida.</p>
+						</section>
+						<section>
+							<h4>Sem turpis amet semper</h4>
+							<ul class="alt">
+								<li><a href="#">Dolor pulvinar sed etiam.</a></li>
+								<li><a href="#">Etiam vel lorem sed amet.</a></li>
+								<li><a href="#">Felis enim feugiat viverra.</a></li>
+								<li><a href="#">Dolor pulvinar magna etiam.</a></li>
+							</ul>
+						</section>
+						<section>
+							<h4>Magna sed ipsum</h4>
+							<ul class="plain">
+								<li><a href="#"><i class="icon fa-twitter">&nbsp;</i>Twitter</a></li>
+								<li><a href="#"><i class="icon fa-facebook">&nbsp;</i>Facebook</a></li>
+								<li><a href="#"><i class="icon fa-instagram">&nbsp;</i>Instagram</a></li>
+								<li><a href="#"><i class="icon fa-github">&nbsp;</i>Github</a></li>
+							</ul>
+						</section>
+					</div>
+					<div class="copyright">
+						&copy; Untitled. Photos <a href="https://unsplash.co">Unsplash</a>, Video <a href="https://coverr.co">Coverr</a>.
+					</div>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+
+        <script src="{% static 'booking/js/jquery.min.js' %}"></script>
+        <script src="{% static 'booking/js/browser.min.js' %}"></script>
+        <script src="{% static 'booking/js/breakpoints.min.js' %}"></script>
+        <script src="{% static 'booking/js/util.js' %}"></script>
+        <script src="{% static 'booking/js/main.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+    <div class="container" style="padding-top: 50px; padding-bottom: 50px">
+        <div class="row">
+            <div class="col-8">
+                <h1 class="mt-2">Add your Hotel here</h1>
+                <hr class="mt-0 mb-4">
+                {% block content %}
+                    <form method="post" novalidate enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form.hotel_name|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form.hotel_country|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form.hotel_city|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form.hotel_zip_code|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form.hotel_street|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form.hotel_street_number|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form.hotel_place_number|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form.hotel_short_desc|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form.hotel_long_desc|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form.hotel_room_sgl|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.hotel_room_sgl_price|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form.hotel_room_dbl|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.hotel_room_dbl_price|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form.hotel_room_twin|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.hotel_room_twin_price|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form.hotel_room_tpl|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.hotel_room_tpl_price|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form.hotel_room_qdbl|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.hotel_room_qdbl_price|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form.hotel_room_family|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.hotel_room_family_price|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form.hotel_room_apartment|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.hotel_room_apartment_price|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form.hotel_image|as_crispy_field}}
+                            </div>
+                            <div class="col-md-6 text-right">
+                                 <button type="submit" class="btn btn-success">Save hotel</button>
+                            </div>
+                        </div>
+                    </form>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+    <div class="container" style="padding-top: 50px; padding-bottom: 50px">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <h1 class="mt-2">Register here</h1>
+                <hr class="mt-0 mb-4">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form.username|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form.first_name|as_crispy_field }}
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-md-6">
+                                {{ form.last_name|as_crispy_field }}
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-md-6">
+                                {{ form.email|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form.phone_number|as_crispy_field }}
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-md-3">
+                                {{ form.password1|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                 {{ form.password2|as_crispy_field}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                {{ form.hasHotel|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3 text-right">
+                                 <button type="submit" class="btn btn-success">Register</button>
+                            </div>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

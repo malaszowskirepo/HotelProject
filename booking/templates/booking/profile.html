@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block head %}
+    <title>home</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+          media="screen">
+{% endblock %}
+{% block body %}
+
+
+    {% if perms.booking.has_hotel %}
+
+        <div class="container-fluid" style="margin-top: 80px">
+            <div class="row">
+                <div class='list-group gallery'>
+                    {% for hotel in my_reservations_or_hotels %}
+                        <div class="col-md-4 col-offset-4">
+                            <div class='col-sm-4 col-xs-4 col-md-4 col-lg-4' style="width: 100%">
+                                <a class="thumbnail fancybox" rel="ligthbox"
+                                   href="{% url 'booking:hotel_statistics' pk=hotel.id %}">
+                                    <img class="img-responsive" alt="" src="{{ hotel.hotel_image.url }}" style="width: 450px; height: 300px"/>
+                                    <div class='text-center'>
+                                        <small class='text-muted' style="font-size: 20px">{{ hotel.hotel_name }}</small>
+                                    </div>
+                                    </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
+
+    {% if not perms.booking.has_hotel %}
+        <div class="container-fluid" style="padding-top: 50px">
+            <div class="card" style="margin-top: 20px">
+                {% for reservation in my_reservations_or_hotels %}
+                    <div class="col-md-4 col-offset-6">
+                        <div class="list-group">
+                            <div class="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <p>Hotel: {{ reservation.reservation_hotel }}
+                                        from {{ reservation.reservation_from }} to {{ reservation.reservation_to }} </p>
+                                    {% if reservation.reservation_room_sgl_quantity != 0 %}
+                                        <p>room_sgl {{ reservation.reservation_room_sgl_quantity }} times</p>
+                                    {% endif %}
+                                    {% if reservation.reservation_room_dbl_quantity != 0 %}
+                                        <p>room_dbl {{ reservation.reservation_room_dbl_quantity }} times</p>
+                                    {% endif %}
+                                    {% if reservation.reservation_room_twin_quantity != 0 %}
+                                        <p>room_twin {{ reservation.reservation_room_twin_quantity }} times</p>
+                                    {% endif %}
+                                    {% if reservation.reservation_room_tpl_quantity != 0 %}
+                                        <p>room_tpl {{ reservation.reservation_room_tpl_quantity }} times</p>
+                                    {% endif %}
+                                    {% if reservation.reservation_room_qdbl_quantity != 0 %}
+                                        <p>room_qdbl {{ reservation.reservation_room_qdbl_quantity }} times</p>
+                                    {% endif %}
+                                    {% if reservation.reservation_room_family_quantity != 0 %}
+                                        <p>room_family {{ reservation.reservation_room_family_quantity }} times</p>
+                                    {% endif %}
+                                    {% if reservation.reservation_room_apartment_quantity != 0 %}
+                                        <p>room_apartment {{ reservation.reservation_room_apartment_quantity }}
+                                            times</p>
+
+                                    {% endif %}
+                                </div>
+
+
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            {% if not perms.booking.has_hotel %}
+                                                {% comment %}       {% if not reservation.has_opinion %} {% endcomment %}
+                                                {% comment %}      {% if reservation.is_after %} {% endcomment %}
+                                                <a class="btn btn-success"
+                                                   href="{% url 'booking:opinion_add' pk=reservation.id %}"
+                                                   role="button">Add opinion</a>
+                                                {% comment %}        {% endif %}   {% endcomment %}
+                                                {% comment %}       {% endif %} {% endcomment %}
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {% if not perms.booking.has_hotel %}
+                                              {% comment %}  {% if reservation.is_before %} {% endcomment %}
+                                                    <a class="btn btn-success"
+                                                       href="{% url 'booking:reservation_delete' pk=reservation.id %}"
+                                                       role="button">Delete
+                                                        Reservation</a>
+                                            {% comment %}    {% endif %} {% endcomment %}
+                                            {% endif %}
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+

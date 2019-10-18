@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load booking_extras %}
+
+{% block head %}
+    <title>zmiana</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script src="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/src/js/bootstrap-datetimepicker.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <link href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/build/css/bootstrap-datetimepicker.css"
+          rel="stylesheet"/>
+
+
+    <script>
+
+        $(document).ready(function () {
+            $(function () {
+                $("#datetimepicker1").datetimepicker({
+
+                    viewMode: 'months',
+                    format: 'MM/YYYY',
+                    toolbarPlacement: "top",
+                    allowInputToggle: true,
+                    icons: {
+                        time: 'fa fa-time',
+                        date: 'fa fa-calendar',
+                        up: 'fa fa-chevron-up',
+                        down: 'fa fa-chevron-down',
+                        previous: 'fa fa-chevron-left',
+                        next: 'fa fa-chevron-right',
+                        today: 'fa fa-screenshot',
+                        clear: 'fa fa-trash',
+                        close: 'fa fa-remove'
+                    }
+
+                }).on('dp.hide', function (e) {
+                    var url = "/booking/update_months/{{hotel_id}}";
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        data: {
+                            'month': e.date.month() + 1,
+                        },
+                        success: function (data) {
+                            $('#reservation-search-results').html(data);
+                        },
+                        error: function (data) {
+                            $('#reservation-search-results').html(data);
+                        },
+                        dataType: 'html'
+                    });
+                })
+
+            });
+        });
+
+        function reloadPage() {
+            setTimeout(function () {
+                location.reload();
+            });
+        }
+    </script>
+
+
+
+
+
+
+    <style>
+
+
+        .invoice-box {
+            max-width: 800px;
+            margin: auto;
+            margin-bottom: 50px;
+            padding: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+            font-size: 16px;
+            line-height: 24px;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color: #555;
+        }
+
+        .invoice-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+        }
+
+        .invoice-box table td {
+            padding: 5px;
+            vertical-align: top;
+        }
+
+
+        .invoice-box table tr td:nth-child(1) {
+            text-align: left;
+            color: #333333;
+        }
+
+        .invoice-box table tr td:nth-child(2) {
+            text-align: center;
+            padding-right: 70px;
+            color: #333333;
+        }
+
+
+        .invoice-box table tr td:nth-child(3) {
+            text-align: right;
+            color: #333333;
+            padding-left: 80px;
+        }
+
+        .invoice-box table tr.top table td {
+            padding-bottom: 20px;
+        }
+
+        .invoice-box table tr.top table td.title {
+            font-size: 45px;
+            line-height: 45px;
+            color: #333;
+        }
+
+        .invoice-box table tr.information table td {
+            padding-bottom: 40px;
+        }
+
+        .invoice-box table tr.heading td {
+            background: #eee;
+            border-bottom: 1px solid;
+            font-weight: bold;
+        }
+
+        .invoice-box table tr.details td {
+            padding-bottom: 20px;
+        }
+
+        .invoice-box table tr.item td {
+            border-bottom: 1px solid #eee;
+        }
+
+        .invoice-box table tr.item.last td {
+            border-bottom: none;
+        }
+
+        .invoice-box table tr.total td:nth-child(2) {
+            border-top: 2px solid #eee;
+            font-weight: bold;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+
+            .invoice-box table tr.information table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+        }
+
+        /** RTL **/
+        .rtl {
+            direction: rtl;
+            font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        }
+
+        .rtl table {
+            text-align: right;
+        }
+
+        .rtl table tr td:nth-child(2) {
+            text-align: left;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    {% comment %}
+        <form method="get" action="{% url 'booking:update_months'  hotel_id %}" style="margin-top: 60px; text-align: center">
+        <input type="text" name="month_id" value="1">
+        <input type="submit" class="btn">
+        </form>
+        {% endcomment %}
+
+
+
+    <div id="outer" style="width:100%; margin-top: 100px">
+        <div class="container" style="display: table;margin: 0 auto;">
+            <div class="row">
+                <div class='col-sm-12' style="max-width: 830px; margin-left: 170px;">
+                    <div class="form-group">
+                        <div class='input-group date' id='datetimepicker1'>
+
+                            <input type='text' class="form-control"/>
+                            <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% comment %}      <form method="get" action="{% url 'booking:update_months'  hotel_id %}" style="margin-top: 60px; text-align: right"> {% endcomment %}
+
+    <div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td class="title">
+                    <img src="http://oi66.tinypic.com/2rnuek1.jpg"
+                         style="width:100%; max-width:300px;">
+                </td>
+                <td></td>
+                <td>
+                    <div id="date">Created:{% now "jS F Y H:i" %}</div>
+                </td>
+            </tr>
+
+
+            <tr>
+
+                <td style="padding-top: 50px">
+                    Address:<br>
+                    {{ hotel.hotel_street }}<br>
+                    {{ hotel.hotel_zip_code }}  {{ hotel.hotel_city }}<br>
+                </td>
+                <td></td>
+                <td style="padding-top: 50px;">
+                    hotel name: {{ hotel.hotel_name }}<br>
+                    hotel owner: {{ hotel.hotel_owner }}<br>
+                    mail: {{ hotel.hotel_owner.email }}<br>
+                    phone: {{ hotel.hotel_owner.phone_number }}
+                </td>
+            </tr>
+            <tr class="heading">
+                <td></td>
+                <td> Invoice</td>
+                <td></td>
+            </tr>
+        </table>
+
+
+            <div id="reservation-search-results">{% include 'booking/ajax_reservation_search.html' %}</div>
+
+    </div>
+
+
+{% endblock %}
